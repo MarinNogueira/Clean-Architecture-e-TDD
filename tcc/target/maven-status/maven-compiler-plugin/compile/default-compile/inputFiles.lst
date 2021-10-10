@@ -1,0 +1,8 @@
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/gateway/database/ProductDatabase.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/gateway/database/UserDatabase.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/gateway/controller/ProductController.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/entities/enums/Role.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/gateway/controller/UserController.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/TccApplication.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/entities/User.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/tcc/src/main/java/com/br/uvv/tcc/entities/Product.java
