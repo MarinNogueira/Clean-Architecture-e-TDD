@@ -1,1 +1,6 @@
+com/br/uvv/tcc/gateway/databuilder/ProductDatabuilder.class
+com/br/uvv/tcc/gateway/databuilder/UserDatabuilder.class
 com/br/uvv/tcc/gateway/controller/ProductControllerUnitTest.class
+com/br/uvv/tcc/gateway/usecase/UserCrudUseCaseUnitTest.class
+com/br/uvv/tcc/gateway/usecase/ProductCrudUseCaseUnitTest.class
+com/br/uvv/tcc/gateway/controller/UserControllerUnitTest.class
