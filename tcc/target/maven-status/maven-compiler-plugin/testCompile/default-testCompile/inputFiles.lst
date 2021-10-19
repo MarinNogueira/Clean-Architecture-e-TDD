@@ -4,3 +4,4 @@
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/controller/ProductControllerUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/databuilder/UserDatabuilder.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/controller/UserControllerUnitTest.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/test/config/DBJdbcConfig.java
