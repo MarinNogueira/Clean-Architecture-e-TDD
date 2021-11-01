@@ -3,7 +3,7 @@ package com.br.uvv.tcc.usecase;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.br.uvv.tcc.entities.Product;
-import com.br.uvv.tcc.gateway.database.product.ProductDatabase;
+import com.br.uvv.tcc.gateway.database.ProductDatabase;
 
 public class ProductCrudUseCase {
 

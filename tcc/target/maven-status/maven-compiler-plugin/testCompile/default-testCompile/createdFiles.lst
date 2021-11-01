@@ -1,7 +1,8 @@
+com/br/uvv/tcc/usecase/ProductCrudUseCaseUnitTest.class
+com/br/uvv/tcc/databuilder/UserDatabuilder.class
 com/br/uvv/tcc/gateway/controller/ProductControllerUnitTest.class
-com/br/uvv/tcc/gateway/usecase/UserCrudUseCaseUnitTest.class
 com/br/uvv/tcc/test/config/DBJdbcConfig.class
 com/br/uvv/tcc/gateway/controller/UserControllerUnitTest.class
-com/br/uvv/tcc/gateway/databuilder/ProductDatabuilder.class
-com/br/uvv/tcc/gateway/databuilder/UserDatabuilder.class
-com/br/uvv/tcc/gateway/usecase/ProductCrudUseCaseUnitTest.class
+com/br/uvv/tcc/gateway/database/ProductJdbcDatabaseUnitTest.class
+com/br/uvv/tcc/usecase/UserCrudUseCaseUnitTest.class
+com/br/uvv/tcc/databuilder/ProductDatabuilder.class

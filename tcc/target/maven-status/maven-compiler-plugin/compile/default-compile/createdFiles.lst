@@ -1,12 +1,12 @@
-com/br/uvv/tcc/gateway/database/product/ProductJdbcDatabase.class
 com/br/uvv/tcc/entities/enums/Role.class
+com/br/uvv/tcc/gateway/database/ProductDatabase.class
 com/br/uvv/tcc/gateway/controller/UserController.class
 com/br/uvv/tcc/TccApplication.class
 com/br/uvv/tcc/usecase/UserCrudUseCase.class
 com/br/uvv/tcc/usecase/ProductCrudUseCase.class
 com/br/uvv/tcc/entities/Product.class
 com/br/uvv/tcc/entities/User.class
+com/br/uvv/tcc/gateway/database/ProductJdbcDatabase.class
 com/br/uvv/tcc/gateway/controller/ProductController.class
-com/br/uvv/tcc/gateway/database/user/UserDatabase.class
-com/br/uvv/tcc/gateway/database/user/UserJdbcDatabase.class
-com/br/uvv/tcc/gateway/database/product/ProductDatabase.class
+com/br/uvv/tcc/gateway/database/UserJdbcDatabase.class
+com/br/uvv/tcc/gateway/database/UserDatabase.class

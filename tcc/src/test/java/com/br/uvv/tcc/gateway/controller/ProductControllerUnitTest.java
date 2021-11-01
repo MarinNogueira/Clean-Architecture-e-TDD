@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.br.uvv.tcc.databuilder.ProductDatabuilder;
 import com.br.uvv.tcc.entities.Product;
-import com.br.uvv.tcc.gateway.databuilder.ProductDatabuilder;
 import com.br.uvv.tcc.usecase.ProductCrudUseCase;
 
 @ExtendWith(MockitoExtension.class)

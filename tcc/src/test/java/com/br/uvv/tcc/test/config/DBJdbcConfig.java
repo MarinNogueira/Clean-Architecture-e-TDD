@@ -29,7 +29,7 @@ public class DBJdbcConfig {
 	public DataSource h2DataSource() {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.H2)
-				.addScript("db/createUserTable.sql")
+				.addScript("database/table.sql")
 				.build();
 	}
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.uvv.tcc.entities.User;
-import com.br.uvv.tcc.gateway.database.user.UserDatabase;
+import com.br.uvv.tcc.gateway.database.UserDatabase;
 
 @Service
 public class UserCrudUseCase {
