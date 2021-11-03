@@ -5,4 +5,5 @@ com/br/uvv/tcc/test/config/DBJdbcConfig.class
 com/br/uvv/tcc/gateway/controller/UserControllerUnitTest.class
 com/br/uvv/tcc/gateway/database/ProductJdbcDatabaseUnitTest.class
 com/br/uvv/tcc/usecase/UserCrudUseCaseUnitTest.class
+com/br/uvv/tcc/gateway/database/UserJdbcDatabaseUnitTest.class
 com/br/uvv/tcc/databuilder/ProductDatabuilder.class

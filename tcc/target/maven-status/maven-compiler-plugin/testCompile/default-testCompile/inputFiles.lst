@@ -3,6 +3,7 @@
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/usecase/UserCrudUseCaseUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/usecase/ProductCrudUseCaseUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/controller/ProductControllerUnitTest.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/database/UserJdbcDatabaseUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/databuilder/UserDatabuilder.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/controller/UserControllerUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/test/config/DBJdbcConfig.java
