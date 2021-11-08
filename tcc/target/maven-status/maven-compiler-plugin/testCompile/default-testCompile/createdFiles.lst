@@ -1,4 +1,5 @@
 com/br/uvv/tcc/usecase/ProductCrudUseCaseUnitTest.class
+com/br/uvv/tcc/usecase/VerifyCredentialsUseCaseUnitTest.class
 com/br/uvv/tcc/databuilder/UserDatabuilder.class
 com/br/uvv/tcc/gateway/controller/ProductControllerUnitTest.class
 com/br/uvv/tcc/test/config/DBJdbcConfig.class

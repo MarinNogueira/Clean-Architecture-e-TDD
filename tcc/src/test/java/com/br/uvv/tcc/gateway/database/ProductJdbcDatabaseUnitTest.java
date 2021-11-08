@@ -49,8 +49,8 @@ class ProductJdbcDatabaseUnitTest {
 		
 		this.productJdbcDatabase.create(product);
 
-		verify(jdbcTemplate).execute("INSERT INTO product (id, name, description, quantity) VALUES (" 
-		+ product.getId() + ", " + product.getName() + ", " + product.getDescription() + ", " + product.getQuantity() + ");");
+		verify(jdbcTemplate).update("INSERT INTO product (id, name, description, quantity) VALUES (?, ?, ?, ?);",
+					product.getId(), product.getName(), product.getDescription(), product.getQuantity());
 		
 	}
 	
@@ -103,6 +103,67 @@ class ProductJdbcDatabaseUnitTest {
 		assertProduct(productList.get(0), productListReturned.get(0));
 		assertProduct(productList.get(1), productListReturned.get(1));
 		
+		
+	}
+	
+	@Test	
+	@SuppressWarnings("unchecked")
+	void getAllWithErrorToAccessDatabase() {
+		
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(anyString(), any(RowMapper.class));
+		
+		assertThrows(ErrorToAccessDatabase.class, () -> {
+			this.productJdbcDatabase.getAll();
+		});
+		
+	}
+	
+	@Test
+	void deleteWithSuccess() {
+		
+		final Long id = 1L;
+		
+		this.productJdbcDatabase.delete(id);
+		
+		verify(jdbcTemplate).update("DELETE FROM product WHERE id = ?", id);
+		
+	}
+	
+	@Test
+	void deleteWithErrorToAccessDatabase() {
+
+		final Long id = 1L;
+
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).update("DELETE FROM product WHERE id = ?", id);
+		
+		assertThrows(ErrorToAccessDatabase.class, () -> {
+			this.productJdbcDatabase.delete(id);
+		});
+	}
+	
+	@Test
+	void updateWithSuccess() {
+		
+		final Product product = ProductDatabuilder.createProduct();
+		
+		this.productJdbcDatabase.update(product);
+		
+		verify(jdbcTemplate).update("UPDATE product SET name = ?, description = ?, quantity = ? WHERE id = ?",
+									product.getName(), product.getDescription(), product.getQuantity(), product.getId());
+		
+	}
+	
+	@Test
+	void updateWithErrorToAccessDatabase() {
+		
+		final Product product = ProductDatabuilder.createProduct();
+		
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).update("UPDATE product SET name = ?, description = ?, quantity = ? WHERE id = ?",
+				product.getName(), product.getDescription(), product.getQuantity(), product.getId());
+
+		assertThrows(ErrorToAccessDatabase.class, () -> {
+			this.productJdbcDatabase.update(product);
+		});
 		
 	}
 	

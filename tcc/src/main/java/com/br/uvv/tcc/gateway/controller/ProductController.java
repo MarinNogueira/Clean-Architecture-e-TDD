@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.uvv.tcc.entities.Product;
+import com.br.uvv.tcc.entities.enums.Role;
 import com.br.uvv.tcc.usecase.ProductCrudUseCase;
 
 @CrossOrigin(origins = "*")//NOSONAR
@@ -27,8 +28,8 @@ public class ProductController {
 	@Validated
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping
-	public void create(final Product product) {
-		this.productCrudUseCase.create(product);
+	public void create(final Product product, final Role role) {
+		this.productCrudUseCase.create(product, role);
 	}
 
 	@Validated
@@ -44,5 +45,18 @@ public class ProductController {
 	public List<Product> getAll() {
 		return this.productCrudUseCase.getAll();
 	}
+	
+	@Validated
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping
+	public void delete(final Long id, final Role role) {
+		this.productCrudUseCase.delete(id, role);
+	}
 
+	@Validated
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping
+	public void update(final Product product, final Role role) {
+		this.productCrudUseCase.update(product, role);
+	}
 }

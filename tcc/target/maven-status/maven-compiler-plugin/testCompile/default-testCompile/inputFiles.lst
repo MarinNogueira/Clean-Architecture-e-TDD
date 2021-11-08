@@ -1,5 +1,6 @@
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/databuilder/ProductDatabuilder.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/database/ProductJdbcDatabaseUnitTest.java
+/home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/usecase/VerifyCredentialsUseCaseUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/usecase/UserCrudUseCaseUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/usecase/ProductCrudUseCaseUnitTest.java
 /home/dev11/Developer/projects/TCC/Clean-Architecture-Unit-Test/Clean-Architecture-e-TDD/tcc/src/test/java/com/br/uvv/tcc/gateway/controller/ProductControllerUnitTest.java

@@ -8,4 +8,8 @@ public interface ProductDatabase {
 	void create(Product product);
 	void sell(Long id, Integer quantitySold);
 	List<Product> getAll();
+	void delete(Long id);
+	Product get(Long id);
+	Product get(String name);
+	void update(Product product);
 }

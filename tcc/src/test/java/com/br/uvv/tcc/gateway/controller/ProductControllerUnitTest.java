@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.br.uvv.tcc.databuilder.ProductDatabuilder;
 import com.br.uvv.tcc.entities.Product;
+import com.br.uvv.tcc.entities.enums.Role;
 import com.br.uvv.tcc.usecase.ProductCrudUseCase;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,12 +30,13 @@ class ProductControllerUnitTest {
 	@Test
 	void createWithSuccess() {
 		final Product product = ProductDatabuilder.createProduct();
+		final Role role = Role.MANAGER;
 	
 		final ArgumentCaptor<Product> productAC = ArgumentCaptor.forClass(Product.class);
 		
-		this.productController.create(product);
+		this.productController.create(product, role);
 		
-		verify(productCrudUseCase).create(productAC.capture());
+		verify(productCrudUseCase).create(productAC.capture(), eq(role));
 		final Product productCap = productAC.getValue();
 		
 		assertProduct(product, productCap);
@@ -63,6 +65,35 @@ class ProductControllerUnitTest {
 		
 		assertProduct(productList.get(0), productListReturned.get(0));
 		assertProduct(productList.get(1), productListReturned.get(1));
+		
+	}
+	
+	@Test
+	void deleteWithSuccess() {
+		
+		final Long id = 1L;
+		final Role role = Role.MANAGER;
+		
+		this.productController.delete(id, role);
+		
+		verify(productCrudUseCase).delete(id, role);
+		
+	}
+	
+	@Test
+	void updateWithSuccess() {
+		
+		final Product product = ProductDatabuilder.createProduct();
+		final Role role = Role.MANAGER;
+		
+		this.productController.update(product, role);
+		
+		final ArgumentCaptor<Product> productAC = ArgumentCaptor.forClass(Product.class);
+		
+		verify(productCrudUseCase).update(productAC.capture(), eq(role));
+		final Product productCap = productAC.getValue();
+		
+		assertProduct(product, productCap);
 		
 	}
 	

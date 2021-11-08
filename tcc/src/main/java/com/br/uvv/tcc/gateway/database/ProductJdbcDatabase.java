@@ -17,8 +17,8 @@ public class ProductJdbcDatabase implements ProductDatabase {
 	public void create(final Product product) {
 
 		try {
-			jdbcTemplate.execute("INSERT INTO product (id, name, description, quantity) VALUES (" 
-					+ product.getId() + ", " + product.getName() + ", " + product.getDescription() + ", " + product.getQuantity() + ");");
+			jdbcTemplate.update("INSERT INTO product (id, name, description, quantity) VALUES (?, ?, ?, ?);",
+					product.getId(), product.getName(), product.getDescription(), product.getQuantity());
 		} catch (Exception e) {
 			
 			throw new ErrorToAccessDatabase();
@@ -44,20 +44,70 @@ public class ProductJdbcDatabase implements ProductDatabase {
 	@Override
 	public List<Product> getAll() {
 		
+		try {	
 
-		final List<Product> productList = jdbcTemplate.query("SELECT * FROM product;", (rs, i) -> {
+			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product;", (rs, i) -> {
+				
+				final Product product = new Product();
+				
+				product.setId(rs.getLong("id"));
+				product.setName(rs.getString("name"));
+				product.setDescription(rs.getString("description"));
+				product.setQuantity(rs.getInt("quantity"));
+				
+				return product;
+			});
 			
-			final Product product = new Product();
+			return productList;
+			
+		} catch (Exception e) {
+			throw new ErrorToAccessDatabase();
+		}
 
-			product.setId(rs.getLong("id"));
-			product.setName(rs.getString("name"));
-			product.setDescription(rs.getString("description"));
-			product.setQuantity(rs.getInt("quantity"));
+	}
+
+	@Override
+	public void delete(Long id) {
+
+		try {
+
+			jdbcTemplate.update("DELETE FROM product WHERE id = ?", id);
 			
-			return product;
-		});
+		} catch (Exception e) {
+			
+			throw new ErrorToAccessDatabase();
 		
-		return productList;
+		}
+		
+	}
+
+	@Override
+	public Product get(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Product get(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Product product) {
+		
+		try {
+
+			this.jdbcTemplate.update("UPDATE product SET name = ?, description = ?, quantity = ? WHERE id = ?",
+					product.getName(), product.getDescription(), product.getQuantity(), product.getId());
+			
+		} catch (Exception e) {
+			
+			throw new ErrorToAccessDatabase();
+		
+		}
+
+		
 	}
 
 }
