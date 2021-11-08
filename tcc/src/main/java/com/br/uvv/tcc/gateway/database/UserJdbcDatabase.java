@@ -3,6 +3,8 @@ package com.br.uvv.tcc.gateway.database;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.br.uvv.tcc.entities.User;
+import com.br.uvv.tcc.entities.enums.Role;
+import com.br.uvv.tcc.gateway.exceptions.ErrorToAccessDatabase;
 
 public class UserJdbcDatabase implements UserDatabase {
 
@@ -11,8 +13,17 @@ public class UserJdbcDatabase implements UserDatabase {
 	@Override
 	public void create(User user) {
 		
-		jdbcTemplate.execute("INSERT INTO user (id, role, name) VALUES (" 
-				+ user.getId() + ", " + user.getRole() + ", " + user.getName() + ")");
+		try {
+			
+			final Integer roleCode = user.getRole() == Role.SALESMAN ? 0 : 1;
+			
+			jdbcTemplate.update("INSERT INTO user (id, role, name) VALUES (?, ?, ?)", user.getId(), roleCode, user.getName());
+			
+		} catch (Exception e) {
+			
+			throw new ErrorToAccessDatabase();
+			
+		}
 		
 	}
 

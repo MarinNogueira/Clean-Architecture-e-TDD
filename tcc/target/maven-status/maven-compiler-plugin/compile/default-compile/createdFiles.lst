@@ -3,7 +3,9 @@ com/br/uvv/tcc/gateway/database/ProductDatabase.class
 com/br/uvv/tcc/gateway/controller/UserController.class
 com/br/uvv/tcc/TccApplication.class
 com/br/uvv/tcc/usecase/UserCrudUseCase.class
+com/br/uvv/tcc/gateway/exceptions/ErrorToAccessDatabase.class
 com/br/uvv/tcc/usecase/ProductCrudUseCase.class
+com/br/uvv/tcc/gateway/exceptions/ExceptionBase.class
 com/br/uvv/tcc/entities/Product.class
 com/br/uvv/tcc/entities/User.class
 com/br/uvv/tcc/gateway/database/ProductJdbcDatabase.class
