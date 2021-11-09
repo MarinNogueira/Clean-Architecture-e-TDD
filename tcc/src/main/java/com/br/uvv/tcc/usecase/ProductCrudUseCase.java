@@ -41,4 +41,12 @@ public class ProductCrudUseCase {
 		this.productDatabase.update(product);
 	}
 	
+	public Product get(final Long id) {
+		return this.productDatabase.get(id);
+	}
+	
+	public Product get(final String name) {
+		return this.productDatabase.get(name);
+	}
+	
 }

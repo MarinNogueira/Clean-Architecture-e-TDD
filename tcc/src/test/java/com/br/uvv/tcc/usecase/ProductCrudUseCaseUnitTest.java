@@ -100,6 +100,36 @@ class ProductCrudUseCaseUnitTest {
 		
 	}
 	
+	@Test
+	void getByIdWithSuccess() {
+		
+		final Long id = 1L;
+		
+		final Product product = ProductDatabuilder.createProduct();
+		
+		doReturn(product).when(this.productDatabase).get(id);
+		
+		final Product productReturned = this.productCrud.get(id);
+		
+		assertProduct(product, productReturned);
+		
+	}
+	
+	@Test
+	void getByNameWithSuccess() {
+		
+		final String name = "anyName";
+		
+		final Product product = ProductDatabuilder.createProduct();
+		
+		doReturn(product).when(this.productDatabase).get(name);
+		
+		final Product productReturned = this.productCrud.get(name);
+		
+		assertProduct(product, productReturned);
+		
+	}
+	
 	private void assertProduct(final Product expected, final Product actual) {
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getDescription(), actual.getDescription());

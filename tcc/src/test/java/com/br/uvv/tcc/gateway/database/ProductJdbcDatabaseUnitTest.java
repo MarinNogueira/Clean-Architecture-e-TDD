@@ -3,15 +3,12 @@ package com.br.uvv.tcc.gateway.database;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,9 +35,6 @@ class ProductJdbcDatabaseUnitTest {
 	
 	@Mock
 	private ResultSet resultSet;
-	
-	@Mock
-	private Statement statement;
 	
 	@Test
 	void createWithSuccess() {
@@ -92,11 +86,11 @@ class ProductJdbcDatabaseUnitTest {
 	
 	@Test
 	@SuppressWarnings("unchecked")
-	void getAllWithSuccess() throws SQLException, IOException {
+	void getAllWithSuccess() {
 		
 		final List<Product> productList = Arrays.asList(ProductDatabuilder.createProduct(), ProductDatabuilder.createProduct());
 				
-		when(jdbcTemplate.query(anyString(), any(RowMapper.class))).thenReturn(productList);
+		when(jdbcTemplate.query(eq("SELECT * FROM product;"), any(RowMapper.class))).thenReturn(productList);
 				
 		final List<Product> productListReturned = this.productJdbcDatabase.getAll();
 
@@ -110,7 +104,7 @@ class ProductJdbcDatabaseUnitTest {
 	@SuppressWarnings("unchecked")
 	void getAllWithErrorToAccessDatabase() {
 		
-		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(anyString(), any(RowMapper.class));
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM product;"), any(RowMapper.class));
 		
 		assertThrows(ErrorToAccessDatabase.class, () -> {
 			this.productJdbcDatabase.getAll();
@@ -163,6 +157,66 @@ class ProductJdbcDatabaseUnitTest {
 
 		assertThrows(ErrorToAccessDatabase.class, () -> {
 			this.productJdbcDatabase.update(product);
+		});
+		
+	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	void getByNameWithSuccess() {
+		
+		final String name = "anyName";
+		
+		final List<Product> productList = Arrays.asList(ProductDatabuilder.createProduct());
+
+		when(jdbcTemplate.query(eq("SELECT * FROM product WHERE name = " + name + ";"), any(RowMapper.class))).thenReturn(productList);
+
+		final Product productReturned = this.productJdbcDatabase.get(name);
+
+		assertProduct(productList.get(0), productReturned);
+		
+	}
+	
+	@Test	
+	@SuppressWarnings("unchecked")
+	void getByNameWithErrorToAccessDatabase() {
+		
+		final String name = "anyName";
+
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM product WHERE name = " + name + ";"), any(RowMapper.class));
+		
+		assertThrows(ErrorToAccessDatabase.class, () -> {
+			this.productJdbcDatabase.get(name);
+		});
+		
+	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	void getByIdWithSuccess() {
+		
+		final Long id = 1L;
+		
+		final List<Product> productList = Arrays.asList(ProductDatabuilder.createProduct());
+
+		when(jdbcTemplate.query(eq("SELECT * FROM product WHERE id = " + id + ";"), any(RowMapper.class))).thenReturn(productList);
+
+		final Product productReturned = this.productJdbcDatabase.get(id);
+
+		assertProduct(productList.get(0), productReturned);
+		
+	}
+	
+	@Test	
+	@SuppressWarnings("unchecked")
+	void getByIdWithErrorToAccessDatabase() {
+		
+		final Long id = 1L;
+
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM product WHERE id = " + id + ";"), any(RowMapper.class));
+		
+		assertThrows(ErrorToAccessDatabase.class, () -> {
+			this.productJdbcDatabase.get(id);
 		});
 		
 	}

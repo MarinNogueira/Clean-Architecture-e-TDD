@@ -59,4 +59,18 @@ public class ProductController {
 	public void update(final Product product, final Role role) {
 		this.productCrudUseCase.update(product, role);
 	}
+	
+	@Validated
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping
+	public Product get(final Long id) {
+		return this.productCrudUseCase.get(id);
+	}
+	
+	@Validated
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping
+	public Product get(final String name) {
+		return this.productCrudUseCase.get(name);
+	}
 }

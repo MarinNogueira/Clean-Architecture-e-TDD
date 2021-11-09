@@ -1,13 +1,17 @@
 package com.br.uvv.tcc.gateway.database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import com.br.uvv.tcc.entities.Product;
 import com.br.uvv.tcc.gateway.exceptions.ErrorToAccessDatabase;
 
+@Component
 public class ProductJdbcDatabase implements ProductDatabase {
 
 	@Autowired
@@ -46,17 +50,8 @@ public class ProductJdbcDatabase implements ProductDatabase {
 		
 		try {	
 
-			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product;", (rs, i) -> {
-				
-				final Product product = new Product();
-				
-				product.setId(rs.getLong("id"));
-				product.setName(rs.getString("name"));
-				product.setDescription(rs.getString("description"));
-				product.setQuantity(rs.getInt("quantity"));
-				
-				return product;
-			});
+			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product;", 
+					(rs, i) -> resultSetMap(rs));
 			
 			return productList;
 			
@@ -83,14 +78,33 @@ public class ProductJdbcDatabase implements ProductDatabase {
 
 	@Override
 	public Product get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product WHERE id = " + id + ";",
+					(rs, i) -> resultSetMap(rs));
+			
+			return productList.get(0);
+		} catch (Exception e) {
+			
+			throw new ErrorToAccessDatabase();
+		
+		}
+		
 	}
 
 	@Override
 	public Product get(String name) {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product WHERE name = " + name + ";", 
+					(rs, i) -> resultSetMap(rs));
+			
+			return productList.get(0);
+		} catch (Exception e) {
+			
+			throw new ErrorToAccessDatabase();
+		
+		}
 	}
 
 	@Override
@@ -108,6 +122,16 @@ public class ProductJdbcDatabase implements ProductDatabase {
 		}
 
 		
+	}
+	
+	private Product resultSetMap(ResultSet rs) throws SQLException {
+		final Product product = new Product();
+		
+		product.setId(rs.getLong("id"));
+		product.setName(rs.getString("name"));
+		product.setDescription(rs.getString("description"));
+		product.setQuantity(rs.getInt("quantity"));
+		return product;
 	}
 
 }
