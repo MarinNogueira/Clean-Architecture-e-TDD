@@ -2,6 +2,8 @@ package com.br.uvv.tcc.gateway.exceptions;
 
 import org.springframework.http.HttpStatus;
 
+import com.br.uvv.tcc.exceptions.ExceptionBase;
+
 import lombok.Getter;
 
 @Getter

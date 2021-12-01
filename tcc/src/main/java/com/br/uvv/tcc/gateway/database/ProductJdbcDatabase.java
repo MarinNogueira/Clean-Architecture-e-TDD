@@ -21,7 +21,7 @@ public class ProductJdbcDatabase implements ProductDatabase {
 	public void create(final Product product) {
 
 		try {
-			jdbcTemplate.update("INSERT INTO product (id, name, description, quantity) VALUES (?, ?, ?, ?);",
+			jdbcTemplate.update("INSERT INTO `tcc_db`.`product` (id, name, description, quantity) VALUES (?, ?, ?, ?);",
 					product.getId(), product.getName(), product.getDescription(), product.getQuantity());
 		} catch (Exception e) {
 			
@@ -35,7 +35,7 @@ public class ProductJdbcDatabase implements ProductDatabase {
 		
 		try {
 			
-			jdbcTemplate.update("UPDATE product SET Quantity = Quantity - ? WHERE id = ?", quantitySold, id);
+			jdbcTemplate.update("UPDATE `tcc_db`.`product` SET Quantity = Quantity - ? WHERE id = ?", quantitySold, id);
 			
 		} catch (Exception e) {
 
@@ -50,7 +50,7 @@ public class ProductJdbcDatabase implements ProductDatabase {
 		
 		try {	
 
-			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product;", 
+			final List<Product> productList = jdbcTemplate.query("SELECT * FROM `tcc_db`.`product`;", 
 					(rs, i) -> resultSetMap(rs));
 			
 			return productList;
@@ -66,7 +66,7 @@ public class ProductJdbcDatabase implements ProductDatabase {
 
 		try {
 
-			jdbcTemplate.update("DELETE FROM product WHERE id = ?", id);
+			jdbcTemplate.update("DELETE FROM `tcc_db`.`product` WHERE id = ?", id);
 			
 		} catch (Exception e) {
 			
@@ -80,8 +80,12 @@ public class ProductJdbcDatabase implements ProductDatabase {
 	public Product get(Long id) {
 		
 		try {
-			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product WHERE id = " + id + ";",
+			final List<Product> productList = jdbcTemplate.query("SELECT * FROM `tcc_db`.`product` WHERE id = " + id + ";",
 					(rs, i) -> resultSetMap(rs));
+			
+			if(productList.isEmpty()) {
+				return null;
+			}
 			
 			return productList.get(0);
 		} catch (Exception e) {
@@ -96,7 +100,7 @@ public class ProductJdbcDatabase implements ProductDatabase {
 	public Product get(String name) {
 
 		try {
-			final List<Product> productList = jdbcTemplate.query("SELECT * FROM product WHERE name = " + name + ";", 
+			final List<Product> productList = jdbcTemplate.query("SELECT * FROM `tcc_db`.`product` WHERE name = " + name + ";", 
 					(rs, i) -> resultSetMap(rs));
 			
 			return productList.get(0);
@@ -112,7 +116,7 @@ public class ProductJdbcDatabase implements ProductDatabase {
 		
 		try {
 
-			this.jdbcTemplate.update("UPDATE product SET name = ?, description = ?, quantity = ? WHERE id = ?",
+			this.jdbcTemplate.update("UPDATE `tcc_db`.`product` SET name = ?, description = ?, quantity = ? WHERE id = ?",
 					product.getName(), product.getDescription(), product.getQuantity(), product.getId());
 			
 		} catch (Exception e) {

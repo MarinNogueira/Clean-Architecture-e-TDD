@@ -1,6 +1,7 @@
 package com.br.uvv.tcc.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -18,6 +19,8 @@ import com.br.uvv.tcc.databuilder.ProductDatabuilder;
 import com.br.uvv.tcc.entities.Product;
 import com.br.uvv.tcc.entities.enums.Role;
 import com.br.uvv.tcc.gateway.database.ProductDatabase;
+import com.br.uvv.tcc.usecase.exceptions.NotEnoughProductInStockBusinessException;
+import com.br.uvv.tcc.usecase.exceptions.ProductNotFoundBusinessException;
 
 @ExtendWith(MockitoExtension.class)
 class ProductCrudUseCaseUnitTest {
@@ -53,9 +56,30 @@ class ProductCrudUseCaseUnitTest {
 		final Long id = 1L;
 		final Integer quantitySold = 2;
 		
+		final Product productSold = ProductDatabuilder.createProduct();
+
+		doReturn(productSold).when(this.productDatabase).get(id);
+		
 		this.productCrud.sell(id, quantitySold);
 		
 		verify(productDatabase).sell(id, quantitySold);
+		
+	}
+	
+	@Test
+	void sellWithNotEnoughQuantity() {
+		final Long id = 1L;
+		final Integer quantitySold = 2;
+		
+		final Product productSold = ProductDatabuilder.createProductWithNotEnoughQuantity();
+
+		doReturn(productSold).when(this.productDatabase).get(id);
+		
+		assertThrows(NotEnoughProductInStockBusinessException.class, () -> {
+
+			this.productCrud.sell(id, quantitySold);
+			
+		});
 		
 	}
 	
@@ -76,11 +100,27 @@ class ProductCrudUseCaseUnitTest {
 	void deleteWithSuccess() {
 		final Long id = 1L;
 		final Role role = Role.MANAGER;
+		final Product product = ProductDatabuilder.createProduct();
+
+		doReturn(product).when(this.productDatabase).get(id);
 		
 		this.productCrud.delete(id, role);
 		
 		verify(verifyCredentialsUseCase).verifyManager(role);
 		verify(productDatabase).delete(id);
+	}
+	
+	@Test
+	void deleteWithProductNotFound() {
+		final Long id = 1L;
+		final Role role = Role.MANAGER;
+		final Product product = null;
+
+		doReturn(product).when(this.productDatabase).get(id);
+		
+		assertThrows(ProductNotFoundBusinessException.class, () -> {
+			this.productCrud.delete(id, role);
+		});
 	}
 	
 	@Test

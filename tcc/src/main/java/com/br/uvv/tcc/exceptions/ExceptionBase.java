@@ -1,4 +1,4 @@
-package com.br.uvv.tcc.gateway.exceptions;
+package com.br.uvv.tcc.exceptions;
 
 import org.springframework.http.HttpStatus;
 

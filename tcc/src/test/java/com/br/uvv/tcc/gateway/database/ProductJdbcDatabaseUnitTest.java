@@ -1,5 +1,6 @@
 package com.br.uvv.tcc.gateway.database;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,7 +44,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		this.productJdbcDatabase.create(product);
 
-		verify(jdbcTemplate).update("INSERT INTO product (id, name, description, quantity) VALUES (?, ?, ?, ?);",
+		verify(jdbcTemplate).update("INSERT INTO `tcc_db`.`product` (id, name, description, quantity) VALUES (?, ?, ?, ?);",
 					product.getId(), product.getName(), product.getDescription(), product.getQuantity());
 		
 	}
@@ -66,7 +67,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		this.productJdbcDatabase.sell(id, quantitySold);
 		
-		verify(jdbcTemplate).update("UPDATE product SET Quantity = Quantity - ? WHERE id = ?", quantitySold, id);
+		verify(jdbcTemplate).update("UPDATE `tcc_db`.`product` SET Quantity = Quantity - ? WHERE id = ?", quantitySold, id);
 		
 	}
 	
@@ -76,7 +77,7 @@ class ProductJdbcDatabaseUnitTest {
 		final Long id = 1L;
 		final Integer quantitySold = 2;
 		
-		doThrow(RuntimeException.class).when(jdbcTemplate).update("UPDATE product SET Quantity = Quantity - ? WHERE id = ?", quantitySold, id);
+		doThrow(RuntimeException.class).when(jdbcTemplate).update("UPDATE `tcc_db`.`product` SET Quantity = Quantity - ? WHERE id = ?", quantitySold, id);
 		
 		assertThrows(ErrorToAccessDatabase.class, () -> {
 			this.productJdbcDatabase.sell(id, quantitySold);
@@ -90,7 +91,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		final List<Product> productList = Arrays.asList(ProductDatabuilder.createProduct(), ProductDatabuilder.createProduct());
 				
-		when(jdbcTemplate.query(eq("SELECT * FROM product;"), any(RowMapper.class))).thenReturn(productList);
+		when(jdbcTemplate.query(eq("SELECT * FROM `tcc_db`.`product`;"), any(RowMapper.class))).thenReturn(productList);
 				
 		final List<Product> productListReturned = this.productJdbcDatabase.getAll();
 
@@ -104,7 +105,7 @@ class ProductJdbcDatabaseUnitTest {
 	@SuppressWarnings("unchecked")
 	void getAllWithErrorToAccessDatabase() {
 		
-		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM product;"), any(RowMapper.class));
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM `tcc_db`.`product`;"), any(RowMapper.class));
 		
 		assertThrows(ErrorToAccessDatabase.class, () -> {
 			this.productJdbcDatabase.getAll();
@@ -119,7 +120,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		this.productJdbcDatabase.delete(id);
 		
-		verify(jdbcTemplate).update("DELETE FROM product WHERE id = ?", id);
+		verify(jdbcTemplate).update("DELETE FROM `tcc_db`.`product` WHERE id = ?", id);
 		
 	}
 	
@@ -128,7 +129,7 @@ class ProductJdbcDatabaseUnitTest {
 
 		final Long id = 1L;
 
-		doThrow(RuntimeException.class).when(this.jdbcTemplate).update("DELETE FROM product WHERE id = ?", id);
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).update("DELETE FROM `tcc_db`.`product` WHERE id = ?", id);
 		
 		assertThrows(ErrorToAccessDatabase.class, () -> {
 			this.productJdbcDatabase.delete(id);
@@ -142,7 +143,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		this.productJdbcDatabase.update(product);
 		
-		verify(jdbcTemplate).update("UPDATE product SET name = ?, description = ?, quantity = ? WHERE id = ?",
+		verify(jdbcTemplate).update("UPDATE `tcc_db`.`product` SET name = ?, description = ?, quantity = ? WHERE id = ?",
 									product.getName(), product.getDescription(), product.getQuantity(), product.getId());
 		
 	}
@@ -152,7 +153,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		final Product product = ProductDatabuilder.createProduct();
 		
-		doThrow(RuntimeException.class).when(this.jdbcTemplate).update("UPDATE product SET name = ?, description = ?, quantity = ? WHERE id = ?",
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).update("UPDATE `tcc_db`.`product` SET name = ?, description = ?, quantity = ? WHERE id = ?",
 				product.getName(), product.getDescription(), product.getQuantity(), product.getId());
 
 		assertThrows(ErrorToAccessDatabase.class, () -> {
@@ -169,7 +170,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		final List<Product> productList = Arrays.asList(ProductDatabuilder.createProduct());
 
-		when(jdbcTemplate.query(eq("SELECT * FROM product WHERE name = " + name + ";"), any(RowMapper.class))).thenReturn(productList);
+		when(jdbcTemplate.query(eq("SELECT * FROM `tcc_db`.`product` WHERE name = " + name + ";"), any(RowMapper.class))).thenReturn(productList);
 
 		final Product productReturned = this.productJdbcDatabase.get(name);
 
@@ -183,7 +184,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		final String name = "anyName";
 
-		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM product WHERE name = " + name + ";"), any(RowMapper.class));
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM `tcc_db`.`product` WHERE name = " + name + ";"), any(RowMapper.class));
 		
 		assertThrows(ErrorToAccessDatabase.class, () -> {
 			this.productJdbcDatabase.get(name);
@@ -199,11 +200,27 @@ class ProductJdbcDatabaseUnitTest {
 		
 		final List<Product> productList = Arrays.asList(ProductDatabuilder.createProduct());
 
-		when(jdbcTemplate.query(eq("SELECT * FROM product WHERE id = " + id + ";"), any(RowMapper.class))).thenReturn(productList);
+		when(jdbcTemplate.query(eq("SELECT * FROM `tcc_db`.`product` WHERE id = " + id + ";"), any(RowMapper.class))).thenReturn(productList);
 
 		final Product productReturned = this.productJdbcDatabase.get(id);
 
 		assertProduct(productList.get(0), productReturned);
+		
+	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	void getByIdWithSuccessWithEmptyList() {
+		
+		final Long id = 1L;
+		
+		final List<Product> productList = Arrays.asList();
+
+		when(jdbcTemplate.query(eq("SELECT * FROM `tcc_db`.`product` WHERE id = " + id + ";"), any(RowMapper.class))).thenReturn(productList);
+
+		final Product productReturned = this.productJdbcDatabase.get(id);
+
+		assertNull(productReturned);
 		
 	}
 	
@@ -213,7 +230,7 @@ class ProductJdbcDatabaseUnitTest {
 		
 		final Long id = 1L;
 
-		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM product WHERE id = " + id + ";"), any(RowMapper.class));
+		doThrow(RuntimeException.class).when(this.jdbcTemplate).query(eq("SELECT * FROM `tcc_db`.`product` WHERE id = " + id + ";"), any(RowMapper.class));
 		
 		assertThrows(ErrorToAccessDatabase.class, () -> {
 			this.productJdbcDatabase.get(id);

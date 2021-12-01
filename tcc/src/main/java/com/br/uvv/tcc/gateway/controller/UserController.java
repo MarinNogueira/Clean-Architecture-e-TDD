@@ -13,7 +13,7 @@ import com.br.uvv.tcc.usecase.UserCrudUseCase;
 
 @CrossOrigin(origins = "*")//NOSONAR
 @RestController
-@RequestMapping("${baseurl.v1}/users")
+@RequestMapping("/tcc/api/v1/service/users")
 public class UserController {
 
 	private UserCrudUseCase userCrudUseCase;

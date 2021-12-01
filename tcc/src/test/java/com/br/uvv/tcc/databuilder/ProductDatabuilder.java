@@ -13,4 +13,15 @@ public class ProductDatabuilder {
 		
 		return product;
 	}
+	
+	public static Product createProductWithNotEnoughQuantity() {
+		final Product product = new Product();
+		
+		product.setId(1L);
+		product.setDescription("anyDescription");
+		product.setName("anyName");
+		product.setQuantity(1);
+		
+		return product;
+	}
 }
